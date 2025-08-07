@@ -1,5 +1,8 @@
-# Getting Started
+# IT Support Automation
+This project handles IT ticket classification using SAP CAPM and AI-based routing.
 
+# Getting Started
+Instructions for setup, running locally, and pushing to GitHub.
 Welcome to your new project.
 
 It contains these folders and files, following our recommended project layout:
@@ -23,3 +26,7 @@ File or Folder | Purpose
 ## Learn More
 
 Learn more at https://cap.cloud.sap/docs/get-started/.
+=======
+# IT-Resource-app
+IT Resource app full stack
+>>>>>>> bd803c0a241a5064bb68155da8f2e011f8cce475
