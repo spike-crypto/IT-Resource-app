@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Support Application</title>
+
+    <!-- Add cache busting and debugging -->
+    <script>
+        console.log("Starting UI5 bootstrap...");
+        window.UI5_LOAD_START = Date.now();
+        window.CACHE_BUSTER = "v1.0.1-" + Date.now();
+        console.log("Cache buster:", window.CACHE_BUSTER);
+    </script>
+
+    <script
+        id="sap-ui-bootstrap"
+        src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_horizon"
+        data-sap-ui-libs="sap.m,sap.ui.core"
+        data-sap-ui-compatVersion="edge"
+        data-sap-ui-async="true"
+        data-sap-ui-resourceroots='{
+            "itsupport": "./"
+        }'
+        data-sap-ui-frameOptions="trusted"
+        data-sap-ui-xx-waitForTheme="true"
+        crossorigin="anonymous"
+        onload="console.log('UI5 script loaded in', Date.now() - window.UI5_LOAD_START, 'ms')"
+        onerror="console.error('Failed to load UI5 script'); document.getElementById('loading').innerHTML = 'Failed to load UI5 framework';">
+    </script>
+    <script>
+        console.log("Initializing application script...");
+
+        // Wait for UI5 to load and initialize the app
+        function initializeApp() {
+            console.log("Checking if UI5 is available...");
+
+            if (typeof sap !== 'undefined' && sap.ui && sap.ui.getCore) {
+                console.log("UI5 is available, initializing...");
+
+                sap.ui.getCore().attachInit(function() {
+                    console.log("UI5 Core initialized, loading component...");
+
+                    // Clear loading message
+                    document.getElementById('loading').style.display = 'none';
+
+                    sap.ui.require([
+                        "sap/ui/core/ComponentContainer"
+                    ], function(ComponentContainer) {
+                        console.log("ComponentContainer loaded, creating component...");
+
+                        try {
+                            new ComponentContainer({
+                                name: "itsupport",
+                                async: true,
+                                settings: {
+                                    id: "itsupport"
+                                }
+                            }).placeAt("content");
+                            console.log("Component container created successfully");
+                        } catch (error) {
+                            console.error("Error creating component:", error);
+                            showError("Error creating component: " + error.message);
+                        }
+                    }, function(error) {
+                        console.error("Error loading ComponentContainer:", error);
+                        showError("Error loading ComponentContainer");
+                    });
+                });
+            } else {
+                console.error("UI5 not available after timeout");
+                showError("UI5 framework failed to load. Please refresh the page.");
+            }
+        }
+
+        function showError(message) {
+            document.getElementById('content').innerHTML =
+                '<div style="padding: 20px; text-align: center; color: red;">' +
+                '<h2>Error Loading Application</h2>' +
+                '<p>' + message + '</p>' +
+                '<button onclick="location.reload()">Refresh Page</button>' +
+                '</div>';
+        }
+
+        // Wait for UI5 to load with multiple attempts
+        var attempts = 0;
+        var maxAttempts = 10;
+
+        function checkUI5() {
+            attempts++;
+            console.log("Checking UI5 availability, attempt", attempts);
+
+            if (typeof sap !== 'undefined' && sap.ui) {
+                initializeApp();
+            } else if (attempts < maxAttempts) {
+                setTimeout(checkUI5, 500);
+            } else {
+                console.error("UI5 failed to load after", maxAttempts, "attempts");
+                showError("UI5 framework failed to load after multiple attempts. Please check your internet connection and refresh the page.");
+            }
+        }
+
+        // Start checking after a short delay
+        setTimeout(checkUI5, 1000);
+    </script>
+</head>
+<body class="sapUiBody" id="content">
+    <div id="loading" style="padding: 20px; text-align: center;">
+        <h2>Loading IT Support Application...</h2>
+        <p>Please wait while we initialize the application.</p>
+    </div>
+    <!-- Component will be loaded here -->
+</body>
+</html>

@@ -1,0 +1,248 @@
+<mvc:View
+    controllerName="itsupport.controller.UserView"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:cards="sap.f.cards"
+    xmlns:core="sap.ui.core">
+
+    <Page id="userPage" title="My Support Tickets - Updated" showNavButton="true" navButtonPress="onNavBack">
+        <headerContent>
+            <Button id="userHomeBtn"
+                    text="Home"
+                    type="Transparent"
+                    icon="sap-icon://home"
+                    press="onNavigateToHome"/>
+        </headerContent>
+
+        <content>
+            <VBox id="userMainContainer" class="sapUiMediumMargin">
+
+                <!-- Ticket Creation Section -->
+                <Panel id="createTicketPanel" class="sapUiMediumMarginBottom">
+                    <headerToolbar>
+                        <Toolbar id="createTicketToolbar">
+                            <Title id="createTicketTitle" text="Create New Support Ticket" level="H2"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox id="createTicketForm" class="sapUiMediumMargin">
+                            <!-- User Information -->
+                            <Label id="userNameLabel" text="Your Name" required="true"/>
+                            <Input id="userNameInput"
+                                   value="{form>/userName}"
+                                   placeholder="Enter your full name..."
+                                   class="sapUiMediumMarginBottom"/>
+
+                            <Label id="userEmailLabel" text="Your Email" required="true"/>
+                            <Input id="userEmailInput"
+                                   value="{form>/userEmail}"
+                                   placeholder="Enter your email address..."
+                                   type="Email"
+                                   class="sapUiMediumMarginBottom"/>
+
+                            <!-- Problem Description -->
+                            <Label id="descriptionLabel" text="Problem Description" required="true"/>
+                            <TextArea id="descriptionInput"
+                                    value="{form>/description}"
+                                    placeholder="Please describe your issue in detail..."
+                                    rows="8"
+                                    maxLength="2000"
+                                    width="100%"
+                                    class="sapUiMediumMarginBottom"/>
+
+
+
+                            <!-- Submit Button -->
+                            <HBox id="submitButtonContainer" justifyContent="End" class="sapUiMediumMarginTop">
+                                <Button id="submitBtn"
+                                        text="Submit Ticket"
+                                        type="Emphasized"
+                                        press="onSubmitTicket"/>
+                            </HBox>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Loading Panel (Hidden by default) -->
+                <Panel id="loadingPanel" class="sapUiMediumMarginBottom" visible="false">
+                    <content>
+                        <VBox id="loadingContainer" class="sapUiMediumMargin" alignItems="Center">
+                            <BusyIndicator id="loadingIndicator" class="sapUiMediumMarginBottom"/>
+                            <Text id="loadingText" text="Processing your request..." class="sapUiMediumText"/>
+                            <Text id="loadingSubText" text="Please wait while we analyze your ticket..." class="sapUiSmallText"/>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Success Response Panel (Hidden by default) -->
+                <Panel id="responsePanel" class="sapUiMediumMarginBottom responsePanel" visible="false">
+                    <headerToolbar>
+                        <Toolbar id="responseToolbar">
+                            <core:Icon id="successIcon" src="sap-icon://accept" color="#107e3e" class="sapUiTinyMarginEnd"/>
+                            <Title id="responseTitle" text="Ticket Created Successfully!" level="H2" class="successTitle"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox id="responseContainer" class="sapUiMediumMargin">
+
+                            <!-- Ticket Information -->
+                            <VBox id="ticketInfoBox" class="sapUiMediumMarginBottom">
+                                <HBox id="ticketIdBox" class="sapUiSmallMarginBottom">
+                                    <Text id="ticketIdLabel" text="Ticket ID: " class="labelText"/>
+                                    <Text id="ticketIdValue" text="{response>/ticketId}" class="valueText"/>
+                                </HBox>
+                                <HBox id="ticketStatusBox" class="sapUiSmallMarginBottom">
+                                    <Text id="ticketStatusLabel" text="Status: " class="labelText"/>
+                                    <Text id="ticketStatusValue" text="Open" class="valueText statusOpen"/>
+                                </HBox>
+                            </VBox>
+
+                            <!-- Classification and Department -->
+                            <VBox id="classificationBox" class="sapUiMediumMarginBottom">
+                                <HBox id="classificationRow" class="sapUiSmallMarginBottom">
+                                    <Text id="classificationLabel" text="Classification: " class="labelText"/>
+                                    <Text id="classificationValue" text="{response>/classification}" class="valueText"/>
+                                </HBox>
+                                <HBox id="departmentRow" class="sapUiSmallMarginBottom">
+                                    <Text id="departmentLabel" text="Responsible Department: " class="labelText"/>
+                                    <Text id="departmentValue" text="{response>/department}" class="valueText"/>
+                                </HBox>
+                            </VBox>
+
+                            <!-- Support Team Response -->
+                            <VBox id="supportResponseBox" class="sapUiMediumMarginBottom">
+                                <Text id="responseFromLabel" text="Response from Support Team:" class="sectionLabel sapUiSmallMarginBottom"/>
+                                <Text id="supportResponseText" text="{response>/message}" class="responseMessage"/>
+                            </VBox>
+
+                            <!-- Action Buttons -->
+                            <HBox id="responseActionsBox" justifyContent="Center" class="sapUiMediumMarginTop">
+                                <Button id="viewTicketsBtn"
+                                        text="View My Tickets"
+                                        type="Emphasized"
+                                        press="onViewMyTickets"
+                                        class="sapUiMediumMarginEnd"/>
+                                <Button id="createAnotherBtn"
+                                        text="Create Another Ticket"
+                                        type="Default"
+                                        press="onCreateAnotherTicket"/>
+                            </HBox>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Email Login Section -->
+                <Panel id="emailLoginPanel" class="sapUiMediumMarginTop">
+                    <headerToolbar>
+                        <Toolbar id="emailLoginToolbar">
+                            <Title id="emailLoginTitle" text="View Your Ticket History" level="H2"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox id="emailLoginContainer" class="sapUiMediumMargin">
+                            <Text id="emailLoginDescription"
+                                  text="Enter your email address to view tickets you've created:"
+                                  class="sapUiMediumMarginBottom"/>
+
+                            <HBox id="emailLoginBox" alignItems="Center" class="sapUiMediumMarginBottom">
+                                <Label id="emailLoginLabel" text="Email:" class="sapUiTinyMarginEnd"/>
+                                <Input id="emailLoginInput"
+                                       value="{login>/email}"
+                                       placeholder="Enter your email address..."
+                                       type="Email"
+                                       width="300px"
+                                       class="sapUiTinyMarginEnd"/>
+                                <Button id="emailLoginBtn"
+                                        text="View My Tickets"
+                                        type="Emphasized"
+                                        press="onEmailLogin"/>
+                            </HBox>
+
+                            <!-- User Welcome Message (Hidden by default) -->
+                            <MessageStrip id="welcomeMessage"
+                                         text="Welcome back! Showing your tickets below."
+                                         type="Success"
+                                         visible="false"
+                                         class="sapUiMediumMarginBottom">
+                                <customData>
+                                    <core:CustomData key="userEmail" value="{login>/currentUserEmail}"/>
+                                </customData>
+                            </MessageStrip>
+
+                            <!-- Sign Out Option (Hidden by default) -->
+                            <HBox id="signOutBox" visible="false" justifyContent="End" class="sapUiSmallMarginTop">
+                                <Button id="signOutBtn"
+                                        text="Sign Out"
+                                        type="Transparent"
+                                        press="onSignOut"/>
+                            </HBox>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- My Tickets Section (Hidden by default) -->
+                <Panel id="myTicketsPanel" class="sapUiMediumMarginTop" visible="false">
+                    <headerToolbar>
+                        <Toolbar id="myTicketsToolbar">
+                            <Title id="myTicketsTitle" text="Your tickets" level="H2"/>
+                            <ToolbarSpacer id="myTicketsToolbarSpacer"/>
+                            <Button id="refreshBtn"
+                                    icon="sap-icon://refresh"
+                                    tooltip="Refresh tickets"
+                                    press="onRefresh"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <Table id="myTicketsTable"
+                               items="{path: '/Ticket', parameters: {$expand: 'RaisedBy,AssignedTo'}}"
+                               growing="true"
+                               growingThreshold="20"
+                               mode="SingleSelect"
+                               selectionChange="onTicketSelect"
+                               class="professionalTicketTable">
+                            <columns>
+                                <Column id="subjectColumn" width="40%">
+                                    <Text id="subjectColumnHeader" text="Subject"/>
+                                </Column>
+                                <Column id="statusColumn" width="15%">
+                                    <Text id="statusColumnHeader" text="Status"/>
+                                </Column>
+                                <Column id="updatedColumn" width="25%">
+                                    <Text id="updatedColumnHeader" text="Last updated"/>
+                                </Column>
+                                <Column id="idColumn" width="20%">
+                                    <Text id="idColumnHeader" text="ID"/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem id="ticketListItem" press="onTicketPress">
+                                    <cells>
+                                        <!-- Subject (Description) -->
+                                        <Text id="subjectText" text="{Description}" maxLines="2" class="ticketSubject"/>
+
+                                        <!-- Status with Badge -->
+                                        <ObjectStatus id="statusBadge"
+                                                    text="{Status}"
+                                                    state="{parts: ['Status'], formatter: '.formatStatusState'}"
+                                                    class="statusBadge"/>
+
+                                        <!-- Last Updated (Relative Time) -->
+                                        <Text id="updatedText"
+                                              text="{parts: ['CreatedAt'], formatter: '.formatRelativeTime'}"
+                                              class="relativeTime"/>
+
+                                        <!-- Ticket ID (Shortened) -->
+                                        <Text id="ticketIdText"
+                                              text="{parts: ['ID'], formatter: '.formatTicketId'}"
+                                              class="ticketId"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Panel>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

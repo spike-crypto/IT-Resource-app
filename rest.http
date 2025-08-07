@@ -1,0 +1,106 @@
+POST https://it-resource-production.up.railway.app/classify
+Content-Type: application/json
+
+{
+  "query": "am facing with an my laptop "
+}
+###
+GET http://localhost:4004/odata/v4/it/Tickets
+
+###
+GET http://localhost:4004/odata/v4/it/Ticket
+
+
+###
+POST http://localhost:4004/odata/v4/it/Ticket
+Content-Type: application/json
+
+{
+  "Description": "Manual test ticket"
+}
+###
+POST http://localhost:4004/odata/v4/it/Ticket
+Content-Type: application/json
+
+{
+  "Description": "My laptop is very slow, I need a new one."
+}
+
+###
+POST http://localhost:4004/odata/v4/it/Ticket
+Content-Type: application/json
+
+{
+  "Description": "Try to check on my system had a issue with dependencies"
+}
+
+###
+GET http://localhost:4004/odata/v4/it/Ticket
+
+
+
+### STEP 1: Get the temporary password (token). Click "Send Request" on this first.
+# @name auth
+POST https://ffcf7e90trial.authentication.us10.hana.ondemand.com/oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id=sb-e04c28ff-d1c4-45f2-ad48-aa60ec9f4dd8!b481159|xsuaa!b49390&client_secret=98df5f89-e29e-4dc5-98ca-e83ae51c631e$eJmqSHeTMcxUwTUPQrJnG_y7MzhxvO6QzSG58iL7-AU=
+
+### STEP 2: Start the workflow. Click "Send Request" on this second.
+# @name startWorkflow
+POST https://spa-api-gateway-bpi-us-prod.cfapps.us10.hana.ondemand.com/v1/workflow-instances
+Authorization: Bearer {{auth.response.body.access_token}}
+Content-Type: application/json
+
+{
+  "definitionId": "spa.project.e9012022-2574-4bf8-b570-9a1f60faf68a.HardwarePOWorkflow",
+  "context": {
+    "TicketID_1": "FINAL-TEST-007",
+    "RequestType_1": "Final Test",
+    "EmployeeName_1": "Balamurugan",
+    "Description": "Final test from .http file",
+    "RequestedDate_1": "2025-08-04"
+  }
+}
+### 2. Start the Workflow (Final Attempt)
+# @name startWorkflow
+POST https://spa-api-gateway-bpi-us-prod.cfapps.us10.hana.ondemand.com/v1/workflow-instances
+Authorization: Bearer {{auth.response.body.access_token}}
+Content-Type: application/json
+
+{
+  "definitionId": "spa.project.48dd80b8-e1a6-4019-b39c-afa205a41fc7.HardwarePOWorkflow",
+  "context": {
+    "TicketID_1": "FINAL-TEST-009",
+    "RequestType_1": "Final Test with Correct ID",
+    "EmployeeName_1": "Balamurugan",
+    "Description": "This test uses the package version ID.",
+    "RequestedDate_1": "2025-08-04"
+  }
+}
+
+
+
+### STEP 1: Get Authorization Token. Run this first.
+# @name auth
+POST https://ffcf7e90trial.authentication.us10.hana.ondemand.com/oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id=sb-e04c28ff-d1c4-45f2-ad48-aa60ec9f4dd8!b481159|xsuaa!b49390&client_secret=98df5f89-e29e-4dc5-98ca-e83ae51c631e$eJmqSHeTMcxUwTUPQrJnG_y7MzhxvO6QzSG58iL7-AU=
+
+###
+### STEP 2: Start the Workflow with the Correct IDs. Run this second.
+# @name startWorkflow
+POST https://spa-api-gateway-bpi-us-prod.cfapps.us10.hana.ondemand.com/workflow/rest/v1/workflow-instances
+Authorization: Bearer {{auth.response.body.access_token}}
+Content-Type: application/json
+
+{
+  "definitionId": "us10.ffcf7e90trial.hardwarerequest.hardwarePOWorkflow",
+  "context": {
+    "ticketID": "API-SUCCESS-007",
+    "requestType": "laptop",
+    "employeeName": " Ranjith",
+    "requestedDate": "2025-08-05"
+  }
+}

@@ -1,0 +1,209 @@
+<mvc:View
+    controllerName="itsupport.controller.SupportView"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core">
+
+    <Page id="supportPage" title="Support Team Dashboard" showNavButton="true" navButtonPress="onNavBack">
+        <headerContent>
+            <Button id="supportHomeBtn"
+                    text="Home"
+                    type="Transparent"
+                    icon="sap-icon://home"
+                    press="onNavigateToHome"/>
+        </headerContent>
+        
+        <content>
+            <VBox id="supportMainContainer" class="sapUiMediumMargin">
+
+                <!-- Statistics Dashboard -->
+                <Panel id="statsPanel" class="sapUiMediumMarginBottom">
+                    <headerToolbar>
+                        <Toolbar id="statsToolbar">
+                            <Title id="statsTitle" text="Dashboard Overview" level="H2"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <HBox id="statsContainer" class="sapUiMediumMargin" justifyContent="SpaceAround">
+
+                            <!-- Open Tickets -->
+                            <VBox id="openTicketsBox" class="statsBox clickableStatsBox" alignItems="Center">
+                                <Title id="openTicketsValue" text="{stats>/open}" level="H1" class="statsNumber"/>
+                                <Text id="openTicketsLabel" text="Open Tickets" class="statsLabel"/>
+                                <Text id="openTicketsSubLabel" text="Pending Resolution" class="statsSubLabel"/>
+                            </VBox>
+
+                            <!-- In Progress -->
+                            <VBox id="inProgressBox" class="statsBox clickableStatsBox" alignItems="Center">
+                                <Title id="inProgressValue" text="{stats>/inProgress}" level="H1" class="statsNumber"/>
+                                <Text id="inProgressLabel" text="In Progress" class="statsLabel"/>
+                                <Text id="inProgressSubLabel" text="Being Worked On" class="statsSubLabel"/>
+                            </VBox>
+
+                            <!-- High Priority -->
+                            <VBox id="highPriorityBox" class="statsBox clickableStatsBox" alignItems="Center">
+                                <Title id="highPriorityValue" text="{stats>/highPriority}" level="H1" class="statsNumber"/>
+                                <Text id="highPriorityLabel" text="High Priority" class="statsLabel"/>
+                                <Text id="highPrioritySubLabel" text="Urgent Attention" class="statsSubLabel"/>
+                            </VBox>
+
+                            <!-- Resolved Today -->
+                            <VBox id="resolvedTodayBox" class="statsBox clickableStatsBox" alignItems="Center">
+                                <Title id="resolvedTodayValue" text="{stats>/resolvedToday}" level="H1" class="statsNumber"/>
+                                <Text id="resolvedTodayLabel" text="Resolved Today" class="statsLabel"/>
+                                <Text id="resolvedTodaySubLabel" text="Completed" class="statsSubLabel"/>
+                            </VBox>
+
+                        </HBox>
+                    </content>
+                </Panel>
+
+                <!-- Filters and Actions -->
+                <Panel id="filtersPanel" class="sapUiMediumMarginBottom">
+                    <headerToolbar>
+                        <Toolbar id="filtersToolbar">
+                            <Title id="filtersTitle" text="Filters &amp; Actions" level="H3"/>
+                            <ToolbarSpacer id="filtersToolbarSpacer"/>
+                            <Button id="clearFiltersBtn"
+                                    text="Clear Filters"
+                                    press="onClearFilters"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <HBox id="filtersContainer" class="sapUiMediumMargin">
+                            <VBox id="statusFilterBox" class="sapUiMediumMarginEnd">
+                                <Label id="statusFilterLabel" text="Status"/>
+                                <ComboBox id="statusFilter"
+                                        width="150px"
+                                        selectionChange="onFilterChange">
+                                    <core:Item id="statusAllItem" key="" text="All"/>
+                                    <core:Item id="statusOpenItem" key="Open" text="Open"/>
+                                    <core:Item id="statusInProgressItem" key="In Progress" text="In Progress"/>
+                                    <core:Item id="statusResolvedItem" key="Resolved" text="Resolved"/>
+                                    <core:Item id="statusClosedItem" key="Closed" text="Closed"/>
+                                </ComboBox>
+                            </VBox>
+                            <VBox id="urgencyFilterBox" class="sapUiMediumMarginEnd">
+                                <Label id="urgencyFilterLabel" text="Urgency"/>
+                                <ComboBox id="urgencyFilter"
+                                        width="150px"
+                                        selectionChange="onFilterChange">
+                                    <core:Item id="urgencyAllItem" key="" text="All"/>
+                                    <core:Item id="urgencyCriticalItem" key="Critical" text="Critical"/>
+                                    <core:Item id="urgencyHighItem" key="High" text="High"/>
+                                    <core:Item id="urgencyMediumItem" key="Medium" text="Medium"/>
+                                    <core:Item id="urgencyLowItem" key="Low" text="Low"/>
+                                </ComboBox>
+                            </VBox>
+                            <VBox id="searchBox">
+                                <Label id="searchLabel" text="Search"/>
+                                <SearchField id="searchField"
+                                           width="200px"
+                                           search="onSearch"
+                                           placeholder="Search tickets..."/>
+                            </VBox>
+                        </HBox>
+                    </content>
+                </Panel>
+
+                <!-- All Tickets Management Table -->
+                <Panel id="allTicketsPanel" class="sapUiMediumMarginTop">
+                    <headerToolbar>
+                        <Toolbar id="allTicketsToolbar">
+                            <Title id="allTicketsTitle" text="All Support Tickets" level="H2"/>
+                            <ToolbarSpacer id="allTicketsToolbarSpacer"/>
+                            <Button id="refreshAllBtn"
+                                    icon="sap-icon://refresh"
+                                    tooltip="Refresh all tickets"
+                                    press="onRefresh"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <Table id="allTicketsTable"
+                               items="{path: '/Ticket', parameters: {$expand: 'RaisedBy,AssignedTo'}}"
+                               growing="true"
+                               growingThreshold="25"
+                               mode="SingleSelect"
+                               selectionChange="onTicketSelect"
+                               noDataText="No tickets found">
+                            <columns>
+                                <Column id="allDescriptionColumn" width="25%">
+                                    <Text id="allDescriptionColumnHeader" text="Problem Description"/>
+                                </Column>
+                                <Column id="allAiAnalysisColumn" width="20%">
+                                    <Text id="allAiAnalysisColumnHeader" text="AI Analysis"/>
+                                </Column>
+                                <Column id="allStatusColumn" width="10%">
+                                    <Text id="allStatusColumnHeader" text="Status"/>
+                                </Column>
+                                <Column id="allUrgencyColumn" width="10%">
+                                    <Text id="allUrgencyColumnHeader" text="Urgency"/>
+                                </Column>
+                                <Column id="allRaisedByColumn" width="12%">
+                                    <Text id="allRaisedByColumnHeader" text="Raised By"/>
+                                </Column>
+                                <Column id="allAssignedToColumn" width="12%">
+                                    <Text id="allAssignedToColumnHeader" text="Assigned To"/>
+                                </Column>
+                                <Column id="allCreatedColumn" width="11%">
+                                    <Text id="allCreatedColumnHeader" text="Created"/>
+                                </Column>
+                                <Column id="allActionsColumn" width="15%">
+                                    <Text id="allActionsColumnHeader" text="Actions"/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem id="allTicketListItem">
+                                    <cells>
+                                        <!-- Problem Description -->
+                                        <VBox id="allDescriptionCell">
+                                            <Text id="allUserDescription" text="{Description}" maxLines="2" class="sapUiTinyMarginBottom"/>
+                                            <Text id="allRequestTypeText" text="Type: {RequestType}" class="sapUiSmallText"/>
+                                        </VBox>
+
+                                        <!-- AI Analysis -->
+                                        <VBox id="allAiAnalysisCell">
+                                            <Text id="allAiResponseText" text="{ResponseMsg}" maxLines="2" class="sapUiTinyMarginBottom"/>
+                                            <Text id="allRouteToText" text="Route: {RouteTo}" class="sapUiSmallText"/>
+                                        </VBox>
+
+                                        <!-- Status -->
+                                        <ObjectStatus id="allStatusObject" text="{Status}" state="{parts: ['Status'], formatter: '.formatStatusState'}"/>
+
+                                        <!-- Urgency -->
+                                        <ObjectStatus id="allUrgencyObject" text="{Urgency}" state="{parts: ['Urgency'], formatter: '.formatUrgencyState'}"/>
+
+                                        <!-- Raised By -->
+                                        <Text id="allRaisedByText" text="{RaisedBy/Name}"/>
+
+                                        <!-- Assigned To -->
+                                        <Text id="allAssignedToText" text="{AssignedTo/Name}"/>
+
+                                        <!-- Created Date -->
+                                        <Text id="allCreatedText" text="{CreatedAt}"/>
+
+                                        <!-- Actions -->
+                                        <HBox id="allActionsBox">
+                                            <Button id="assignToMeBtn"
+                                                    text="Assign to Me"
+                                                    type="Transparent"
+                                                    icon="sap-icon://person-placeholder"
+                                                    press="onAssignToMe"
+                                                    class="sapUiTinyMarginEnd"/>
+                                            <Button id="updateStatusBtn"
+                                                    text="Update"
+                                                    type="Transparent"
+                                                    icon="sap-icon://edit"
+                                                    press="onUpdateStatus"/>
+                                        </HBox>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Panel>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

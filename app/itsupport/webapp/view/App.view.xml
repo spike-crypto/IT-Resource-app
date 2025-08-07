@@ -1,0 +1,10 @@
+<mvc:View
+    controllerName="itsupport.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true">
+    
+    <App id="app" class="myAppDemoWT">
+        <!-- Pages will be added here by the router -->
+    </App>
+</mvc:View>

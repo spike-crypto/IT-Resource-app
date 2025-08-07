@@ -1,0 +1,68 @@
+<mvc:View
+    controllerName="itsupport.controller.LandingPage"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Page id="landingPage" title="{i18n>appTitle}" showNavButton="false" class="sapUiContentPadding">
+        <content>
+            <VBox id="landingContainer" class="sapUiLargeMargin" alignItems="Center" justifyContent="Center">
+                
+                <!-- Header Section -->
+                <VBox id="headerSection" class="sapUiLargeMarginBottom" alignItems="Center">
+                    <core:Icon id="mainIcon" src="sap-icon://customer-and-supplier" size="4rem" color="#0070f2" class="sapUiMediumMarginBottom"/>
+                    <Title id="welcomeTitle" text="IT Support Portal" level="H1" class="sapUiMediumMarginBottom"/>
+                    <Text id="welcomeSubtitle" text="Choose your role to get started" class="sapUiMediumMarginBottom"/>
+                </VBox>
+
+                <!-- Navigation Tiles -->
+                <HBox id="navigationTiles" class="sapUiLargeMarginTop" justifyContent="Center">
+
+                    <!-- End User Tile -->
+                    <VBox id="userTile" class="sapUiMediumMarginEnd landingTile" width="300px">
+                        <Panel id="userTilePanel" class="sapUiNoContentPadding">
+                            <headerToolbar>
+                                <Toolbar id="userTileToolbar">
+                                    <Title id="userTileTitle" text="My Support Tickets" level="H2"/>
+                                </Toolbar>
+                            </headerToolbar>
+                            <content>
+                                <VBox id="userTileContent" class="sapUiMediumMargin" alignItems="Center">
+                                    <core:Icon id="userTileIcon" src="sap-icon://person-placeholder" size="3rem" color="#0070f2" class="sapUiMediumMarginBottom"/>
+                                    <Text id="userTileText1" text="Create new support tickets" class="sapUiSmallMarginBottom"/>
+                                    <Text id="userTileText2" text="View your ticket history" class="sapUiSmallMarginBottom"/>
+                                    <Text id="userTileText3" text="Track ticket progress" class="sapUiSmallMarginBottom"/>
+                                </VBox>
+                            </content>
+                        </Panel>
+                        <Button id="userTileButton" text="Go to My Tickets" type="Emphasized" width="100%" press="onNavigateToUserView"/>
+                    </VBox>
+
+                    <!-- Support Team Tile -->
+                    <VBox id="supportTile" class="sapUiMediumMarginStart landingTile" width="300px">
+                        <Panel id="supportTilePanel" class="sapUiNoContentPadding">
+                            <headerToolbar>
+                                <Toolbar id="supportTileToolbar">
+                                    <Title id="supportTileTitle" text="Support Team Dashboard" level="H2"/>
+                                </Toolbar>
+                            </headerToolbar>
+                            <content>
+                                <VBox id="supportTileContent" class="sapUiMediumMargin" alignItems="Center">
+                                    <core:Icon id="supportTileIcon" src="sap-icon://group" size="3rem" color="#0070f2" class="sapUiMediumMarginBottom"/>
+                                    <Text id="supportTileText1" text="Manage all support tickets" class="sapUiSmallMarginBottom"/>
+                                    <Text id="supportTileText2" text="View team dashboard" class="sapUiSmallMarginBottom"/>
+                                    <Text id="supportTileText3" text="Assign and resolve tickets" class="sapUiSmallMarginBottom"/>
+                                </VBox>
+                            </content>
+                        </Panel>
+                        <Button id="supportTileButton" text="Go to Support Dashboard" type="Emphasized" width="100%" press="onNavigateToSupportView"/>
+                    </VBox>
+
+                </HBox>
+
+
+
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

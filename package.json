@@ -1,0 +1,49 @@
+{
+  "name": "IT_Support_Automation",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@cap-js/hana": "^2",
+    "@sap/cds": "^9",
+    "axios": "^1.11.0",
+    "express": "^4"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@cap-js/cds-types": "^0.13.0"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch --profile hybrid",
+    "watch-itsupport": "cds watch --profile hybrid --open itsupport/webapp/index.html"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "hana-cloud",
+        "model": [
+          "db"
+        ]
+      }
+    },
+    "auth": false
+  },
+  "hana": {
+    "pool": {
+      "min":2,
+      "max": 20,
+      "acquireTimeoutMillis":1000
+    },
+    "bpa": {
+      "kind": "rest",
+      "credentials": {
+        "destination": "bpa_workflow_api"
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+ID,Name,Email,Department_ID,Role,team_ID
+e1,John Doe,john.doe@example.com,d1,SupportAgent,t1
+e2,Alice Smith,alice.smith@example.com,d1,User,
+e3,Mark Lee,mark.lee@example.com,d2,SupportAgent,t2

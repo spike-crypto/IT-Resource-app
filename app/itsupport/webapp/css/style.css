@@ -1,0 +1,245 @@
+/* Custom styles for IT Support Application */
+
+.myAppDemoWT .myCustomButton.sapMBtn {
+    margin-right: 0.125rem;
+}
+
+/* Landing Page Styles */
+.landingTile {
+    width: 300px;
+    height: 250px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.landingTile:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    border-color: #0070f2;
+}
+
+.landingTile .sapFCardHeader {
+    background: linear-gradient(135deg, #0070f2 0%, #005cb8 100%);
+    color: white;
+}
+
+.landingTile .sapFCardHeader .sapFCardHeaderTitle {
+    color: white;
+}
+
+/* Page Background */
+#landingPage .sapMPageBgStandard {
+    background: linear-gradient(135deg, #f8fbff 0%, #e8f4fd 100%);
+}
+
+/* Support Dashboard Statistics */
+.statsBox {
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 0.5rem;
+    min-width: 150px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.statsBox:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.clickableStatsBox {
+    cursor: pointer;
+}
+
+.clickableStatsBox:hover {
+    border-color: #0070f2;
+    background-color: #f8fbff;
+}
+
+.clickableStatsBox:active {
+    transform: translateY(0px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.statsNumber {
+    color: #0070f2;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.statsLabel {
+    font-weight: 600;
+    color: #333;
+}
+
+.statsSubLabel {
+    color: #666;
+    font-size: 0.875rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .landingTile {
+        width: 280px;
+        margin-bottom: 1rem;
+    }
+
+    #navigationTiles {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .statsBox {
+        min-width: 120px;
+        padding: 1rem;
+    }
+
+    .statsNumber {
+        font-size: 2rem;
+    }
+}
+
+/* SAP Fiori Design Enhancements */
+.sapMPage {
+    background-color: #f7f7f7;
+}
+
+/* Card hover effects */
+.sapFCard:hover {
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* Table enhancements */
+.sapMTable .sapMListTblRow:hover {
+    background-color: #f0f8ff;
+}
+
+/* Button consistency */
+.sapMBtn.sapMBtnTransparent {
+    border: 1px solid transparent;
+}
+
+.sapMBtn.sapMBtnTransparent:hover {
+    background-color: #e8f4fd;
+    border-color: #0070f2;
+}
+
+/* Status indicators */
+.sapMObjectStatus.sapMObjectStatusError {
+    color: #bb0000;
+}
+
+.sapMObjectStatus.sapMObjectStatusWarning {
+    color: #e78c07;
+}
+
+.sapMObjectStatus.sapMObjectStatusSuccess {
+    color: #107e3e;
+}
+
+.sapMObjectStatus.sapMObjectStatusInformation {
+    color: #0070f2;
+}
+
+/* Ensure proper spacing for tiles */
+.sapSuiteUiCommonsTile {
+    margin: 0.5rem;
+}
+
+/* Custom styling for status indicators */
+.sapMObjectStatus.sapMObjectStatusActive {
+    font-weight: bold;
+}
+
+/* Responsive margin adjustments */
+@media (max-width: 600px) {
+    .sapUiResponsiveMargin {
+        margin: 0.5rem;
+    }
+}
+
+/* Response Panel Styles */
+.responsePanel {
+    border: 2px solid #107e3e;
+    border-radius: 8px;
+    background-color: #f8fff8;
+    box-shadow: 0 4px 16px rgba(16, 126, 62, 0.1);
+}
+
+.responsePanel .sapMPanelHdr {
+    background: linear-gradient(135deg, #107e3e 0%, #0d6b33 100%);
+    color: white;
+    border-radius: 6px 6px 0 0;
+}
+
+.successTitle {
+    color: white !important;
+    font-weight: 600;
+}
+
+.labelText {
+    font-weight: 600;
+    color: #333;
+    min-width: 140px;
+}
+
+.valueText {
+    color: #0070f2;
+    font-weight: 500;
+}
+
+.statusOpen {
+    color: #107e3e;
+    font-weight: 600;
+}
+
+.sectionLabel {
+    font-weight: 600;
+    color: #333;
+    font-size: 1rem;
+}
+
+.responseMessage {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 6px;
+    border-left: 4px solid #0070f2;
+    line-height: 1.5;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+/* Loading Panel Styles */
+.sapMBusyIndicator {
+    color: #0070f2;
+}
+
+/* Button enhancements for response panel */
+.responsePanel .sapMBtn {
+    min-width: 140px;
+    font-weight: 500;
+}
+
+/* Responsive adjustments for response panel */
+@media (max-width: 768px) {
+    .labelText {
+        min-width: 120px;
+        font-size: 0.9rem;
+    }
+
+    .responseMessage {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .responsePanel .sapMBtn {
+        min-width: 120px;
+        margin-bottom: 0.5rem;
+    }
+}

@@ -1,0 +1,84 @@
+/* Professional Zendesk-style Table Styling */
+
+.professionalTicketTable .sapMListTbl {
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+}
+
+.professionalTicketTable .sapMListTblHeader {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #e3e3e3;
+}
+
+.professionalTicketTable .sapMListTblHeaderCell {
+    font-weight: 600;
+    color: #333;
+    padding: 12px 16px;
+}
+
+.professionalTicketRow {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s ease;
+}
+
+.professionalTicketRow:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.ticketSubject {
+    font-weight: 500;
+    color: #333;
+    line-height: 1.4;
+}
+
+.statusBadge {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.relativeTime {
+    color: #666;
+    font-size: 0.875rem;
+}
+
+.ticketId {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.875rem;
+    color: #0066cc;
+    font-weight: 500;
+}
+
+/* Status color overrides */
+.sapMObjectStatus.statusBadge.sapMObjectStatusWarning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.sapMObjectStatus.statusBadge.sapMObjectStatusInformation {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.sapMObjectStatus.statusBadge.sapMObjectStatusSuccess {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* Table cell padding */
+.professionalTicketTable .sapMListTblCell {
+    padding: 12px 16px;
+    vertical-align: middle;
+}
+
+/* Remove default table styling */
+.professionalTicketTable .sapMListTblRow {
+    border: none;
+}
+
+.professionalTicketTable .sapMListTblRowHover {
+    background-color: #f8f9fa !important;
+}
